@@ -18,6 +18,9 @@ import org.reflections.util.ConfigurationBuilder;
  */
 public class Scannotations {
 
+	//packages annotations to look for. comma separated package names
+	public static String type = "javax.ws.rs";
+	
 	/**
 	 * @param args
 	 */

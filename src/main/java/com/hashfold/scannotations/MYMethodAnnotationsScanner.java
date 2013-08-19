@@ -39,33 +39,6 @@ public class MYMethodAnnotationsScanner extends MethodAnnotationsScanner {
 		this.packageName = packageName;
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public void dumpMethodMap() {
-
-		System.out
-				.println("====================================================================================");
-
-		System.out
-				.println("Class:Method\tHttpMethod\tURL\tResponseType\t<[Type queryParam],>");
-
-		List sorted = new ArrayList(methodMap.keySet());
-		Collections.sort(sorted);
-
-		for (int i = 0; i < sorted.size(); i++) {
-
-			String key = (String) sorted.get(i);
-
-			AnnotatedMethodInfo ami = methodMap.get(key);
-
-			if ((ami != null) && (ami.classAnnotationPath != null))
-				System.out.println(methodMap.get(key));
-		}
-
-		System.out
-				.println("====================================================================================");
-
-	}
-
 	@SuppressWarnings("unchecked")
 	@Override
 	public void scan(Object cls) {
@@ -83,13 +56,14 @@ public class MYMethodAnnotationsScanner extends MethodAnnotationsScanner {
 			annos0 = attrClass.getAnnotations();
 		}
 
-		if (annos0 == null)
-			return;
+		String classAnnotationPath = "";
+		if (annos0 != null) {
 
-		Map<String, String> annoParams = fetchAttributeInfo(annos0,
-				"javax.ws.rs.", "");
+			Map<String, String> annoParams = fetchAttributeInfo(annos0,
+					Scannotations.type+".", "");
 
-		String classAnnotationPath = annoParams.get("Path");
+			classAnnotationPath = annoParams.get("Path");
+		}
 
 		String className = clsFile.getName();
 
@@ -134,7 +108,7 @@ public class MYMethodAnnotationsScanner extends MethodAnnotationsScanner {
 							for (Annotation[] anno : annos) {
 
 								Map<String, String> annoParams1 = fetchAttributeInfo(
-										anno, "javax.ws.rs.", "\t\t");
+										anno, Scannotations.type+".", "\t\t");
 
 								String queryParam = annoParams1
 										.get("QueryParam");
@@ -210,7 +184,7 @@ public class MYMethodAnnotationsScanner extends MethodAnnotationsScanner {
 							.getAttribute(AnnotationsAttribute.visibleTag);
 
 					Map<String, String> annoParams2 = fetchAttributeInfo(
-							attr.getAnnotations(), "javax.ws.rs.", "\t");
+							attr.getAnnotations(), Scannotations.type+".", "\t");
 
 					String methodAnnotationPath = annoParams2.get("Path");
 					String methodAnnotationProduces = annoParams2
@@ -317,5 +291,32 @@ public class MYMethodAnnotationsScanner extends MethodAnnotationsScanner {
 
 		}
 		return params;
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public void dumpMethodMap() {
+
+		System.out
+				.println("====================================================================================");
+
+		System.out
+				.println("Class:Method\tHttpMethod\tURL\tResponseType\t<[Type queryParam],>");
+
+		List sorted = new ArrayList(methodMap.keySet());
+		Collections.sort(sorted);
+
+		for (int i = 0; i < sorted.size(); i++) {
+
+			String key = (String) sorted.get(i);
+
+			AnnotatedMethodInfo ami = methodMap.get(key);
+
+			if ((ami != null) && (ami.classAnnotationPath != null))
+				System.out.println(methodMap.get(key));
+		}
+
+		System.out
+				.println("====================================================================================");
+
 	}
 }
