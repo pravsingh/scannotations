@@ -1,5 +1,6 @@
 package com.hashfold.scannotations;
 
+import java.io.BufferedWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -35,9 +36,13 @@ public class MYMethodAnnotationsScanner extends MethodAnnotationsScanner {
 
 	Map<String, AnnotatedMethodInfo> methodMap = new HashMap<String, AnnotatedMethodInfo>();
 
-	public MYMethodAnnotationsScanner(String packageName) {
+	IScannotationHook hook = null;
+
+	public MYMethodAnnotationsScanner(String packageName, IScannotationHook hook) {
 		this.packageName = packageName;
+		this.hook = hook;
 	}
+
 
 	@SuppressWarnings("unchecked")
 	@Override

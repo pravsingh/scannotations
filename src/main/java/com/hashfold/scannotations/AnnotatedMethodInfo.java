@@ -37,8 +37,7 @@ public class AnnotatedMethodInfo {
 	public String toString() {
 
 		String data = className + ":" + methodName + "\t" + httpMethod + "\t"
-				+ "" + classAnnotationPath + methodAnnotationPath + "\t"
-				+ methodAnnotationProduces;
+				+ "" + classAnnotationPath + methodAnnotationPath+"\t"+methodAnnotationProduces;
 
 		String param = "";
 
@@ -57,4 +56,62 @@ public class AnnotatedMethodInfo {
 		return data;
 	}
 
+	public String getClassName() {
+		return className;
+	}
+
+	public void setClassName(String className) {
+		this.className = className;
+	}
+
+	public String getMethodName() {
+		return methodName;
+	}
+
+	public void setMethodName(String methodName) {
+		this.methodName = methodName;
+	}
+
+	public String getClassAnnotationPath() {
+		return classAnnotationPath;
+	}
+
+	public void setClassAnnotationPath(String classAnnotationPath) {
+		this.classAnnotationPath = classAnnotationPath;
+	}
+
+	public String getMethodAnnotationPath() {
+		return methodAnnotationPath;
+	}
+
+	public void setMethodAnnotationPath(String methodAnnotationPath) {
+		this.methodAnnotationPath = methodAnnotationPath;
+	}
+
+	public Map<String, AnnotatedParamInfo> getParams() {
+		return params;
+	}
+
+	public void setParams(Map<String, AnnotatedParamInfo> params) {
+		this.params = params;
+	}
+
+	public String getMethodAnnotationProduces() {
+		return methodAnnotationProduces;
+	}
+
+	public void setMethodAnnotationProduces(String methodAnnotationProduces) {
+		this.methodAnnotationProduces = methodAnnotationProduces;
+	}
+
+	public String getHttpMethod() {
+		return httpMethod;
+	}
+
+	public void setHttpMethod(String httpMethod) {
+		this.httpMethod = httpMethod;
+	}
+
+	
+	
 }

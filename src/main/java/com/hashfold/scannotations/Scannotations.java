@@ -24,18 +24,24 @@ public class Scannotations {
 	/**
 	 * @param args
 	 */
-	@SuppressWarnings({ "unused" })
 	public static void main(String[] args) {
 
+		new Scannotations().generateWADLFile();
+
+	}
+
+	public void generateWADLFile() {
 		String packageName = "com.hashfold.scannotations.sample";
 
+		IScannotationHook hook = new ScannotationHook();
+
 		MYMethodAnnotationsScanner scanner = new MYMethodAnnotationsScanner(
-				packageName);
+				packageName, hook);
 
-		ConfigurationBuilder builder = new ConfigurationBuilder();
-
-		Reflections reflections = new Reflections(builder.setUrls(
-				ClasspathHelper.forPackage(packageName)).setScanners(scanner));
+		@SuppressWarnings("unused")
+		Reflections reflections = new Reflections(new ConfigurationBuilder()
+				.setUrls(ClasspathHelper.forPackage(packageName)).setScanners(
+						scanner));
 
 		scanner.dumpMethodMap();
 
